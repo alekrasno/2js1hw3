@@ -30,7 +30,7 @@
 				};
 				mystify();
 				console.log ('Загадано число ' + secret);
-				for (i = 1; i <= stepLimit; i++)  {
+				for (i = 1; i <= stepLimit-1; i++)  {
 					let bullsNumber = 0;
 					let cowsNumber = 0;
 					// Игрок делает попытку угадать
@@ -43,40 +43,35 @@
 							trying[i] = tryString.charAt(i);
 						} */
 						console.log ('Введено '+ x);
-						for (j = 0; j < 4; j++)  { // Поэлементное сравнение
-							if (x.charAt(j) == secret[j])  { // Проверка на быков
-								console.log ('Элемент номер ' + j +'. Бык на месте');
-								bullsNumber++;
-								if (bullsNumber == 4) {
-									console.log ('Угадано');
-								}
-							} else {  
-								for (i = 0; i < 4; i++)  {
-									console.log (x.charAt(j) + ' проверяется на корову');
-									let jPos = secret.indexOf(x.charAt(j)); // Проверка на коров
-									console.log (jPos);
-									if (jPos != -1)  {
-							 		 	console.log ('Корова на месте '+ j);
-							 	 		cowsNumber++;
-									}
-								}	
+						for (j = 0; j < 4; j++)  { // Перебор введенного
+							for (i = 0; i < 4; i++)  { // Перебор загаданного
+								if (x.charAt(j) == secret[i])  { //
+									j == i ? bullsNumber++ : cowsNumber++;
+								} 	
 							}
 						}
+						console.log (x + ' |  Быков - '+ bullsNumber +', коров - ' + cowsNumber);
 						return bullsNumber, cowsNumber;
 					};
 					comparison(tryString);
 					//console.log (trying);
-					attempts.push([tryString, bullsNumber, cowsNumber]); // Добавление строки с результатами попытки в массив
+					let tourResult = [tryString, bullsNumber, cowsNumber];
+					attempts.push(tourResult); // Добавление строки с результатами попытки в массив
 					for (i = 0; i < attempts.length - 1; i++)  {
-						console.log (attempts[i][1], attempts[i][2], attempts[i][3]);
+						console.log (attempts[i][0], attempts[i][1], attempts[i][2]);
 					}
-					steps++;
+					if (bullsNumber < 4)	{
+						steps++;
+					} else {
+						console.log ('Да!!!');
+						return;
+					}
 				}	
 
       };
 // ------
       letsplay();
-        
+      console.log ('Поздравляем! Вы выиграли!');
       // Попытка сравнивается с оригиналом
       // Выдается результат сравнения
     </script>
