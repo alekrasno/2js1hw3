@@ -45,28 +45,31 @@
 							}
 						}
 						// Выдается результат сравнения
-						console.log (x + ' |  Быков - '+ bullsNumber +', коров - ' + cowsNumber);
-						return bullsNumber, cowsNumber;
+						//console.log (x + ' |  Быков - '+ bullsNumber +', коров - ' + cowsNumber);
+						let tourResult = [tryString, bullsNumber, cowsNumber];
+						return tourResult;
 					};
-					let tryString = prompt ('Ваши предположения?');
-					if (!tryString.match (/^\d{4}$/)) {
+					let tryString = prompt ('Ваши предположения?'); // Ввод данных
+					if (!tryString.match (/^\d{4}$/)) { // Контроль ввода
 						alert ('Принимаются только 4 цифры!');
 					} else {
-						comparison(tryString);	
-						let tourResult = [tryString, bullsNumber, cowsNumber];
-						attempts.push(tourResult); // Добавление строки с результатами попытки в массив
-						for (i = 0; i < attempts.length - 1; i++)  {
+						//comparison(tryString);	// Анализ данных
+						attempts.push(comparison(tryString)); // Добавление строки с результатами попытки в массив
+						for (i = attempts.length - 1; i >= 0; i--)  {
 							console.log ((i+1)+ '. ' + attempts[i][0], attempts[i][1], attempts[i][2]);
 						}
 						if (bullsNumber < 4)	{
 							steps++;
+							if (steps == stepLimit) { 
+								alert ('Количество попыток исчерпано.\nВы проиграли');
+								return;
+							}
 						} else {
 							alert ('Да!!!\nПоздравляем! Вы выиграли!');
 							return;
 						}
 					}
 				}	
-				alert ('Количество попыток исчерпано.\nВы проиграли');
       };
 // ------
       letsplay();
