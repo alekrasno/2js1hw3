@@ -10,53 +10,46 @@
 				let secret = [];
 				let steps = 0;
 				let stepLimit = 10;
-				let attempts = []; // Данные о попытке игрока
-				// Комп загадывает 4-значное число
-        chaotic = function ()  {
+				let attempts = []; // Сведения о попытках игрока
+// Комп загадывает 4-значное число
+        chaotic = function ()  { // ГСЧ
 					return x = Math.floor(Math.random() * 10);
 				};
-				// Заполнение массива случайными числами
-				mystify = function()  {
+				mystify = function()  { // Функция заполнения массива случайными числами
 					while (secret.length < 4)  {
 						let x = chaotic();
 						//console.log ('Сгенерировано '+x);
 						if (secret.indexOf(x) == -1) {
-							//console.log (x + ' в массиве нет');
 							secret.push(x);
 							//console.log ('Добавляем элемент '+ x);
 						}
 					}
-					//return secret;
 				};
-				mystify();
+				mystify(); // "Задумывание" числа
 				console.log ('Загадано число ' + secret);
+// Игра начинается
 				for (i = 1; i <= stepLimit-1; i++)  {
 					let bullsNumber = 0;
 					let cowsNumber = 0;
-					// Игрок делает попытку угадать
-					let comparison = function (x)  {
+					let comparison = function (x)  { // Функция сравнения
 						console.log ('Осталось попыток ' + (9 - steps));
-						// Попытка сравнивается с оригиналом
 						for (j = 0; j < 4; j++)  { // Перебор введенного
 							for (i = 0; i < 4; i++)  { // Перебор загаданного
-								if (x.charAt(j) == secret[i])  { //
+								if (x.charAt(j) == secret[i])  { // Если цифра есть...
 									j == i ? bullsNumber++ : cowsNumber++;
 								} 	
 							}
 						}
-						// Выдается результат сравнения
-						//console.log (x + ' |  Быков - '+ bullsNumber +', коров - ' + cowsNumber);
-						let tourResult = [tryString, bullsNumber, cowsNumber];
+						let tourResult = [tryString, bullsNumber, cowsNumber];  // Результат сравнения
 						return tourResult;
 					};
 					let tryString = prompt ('Ваши предположения?'); // Ввод данных
 					if (!tryString.match (/^\d{4}$/)) { // Контроль ввода
 						alert ('Принимаются только 4 цифры!');
 					} else {
-						//comparison(tryString);	// Анализ данных
-						attempts.push(comparison(tryString)); // Добавление строки с результатами попытки в массив
-						for (i = attempts.length - 1; i >= 0; i--)  {
-							console.log ((i+1)+ '. ' + attempts[i][0], attempts[i][1], attempts[i][2]);
+						attempts.push(comparison(tryString)); // Добавление результатов попытки в массив с результатами
+						for (i = attempts.length - 1; i >= 0; i--)  { // Вывод результатов предыдущих попыток
+							console.log ((i+1)+ '. ' + attempts[i][0] + ' |  Быков ' + attempts[i][1] + ', коров ' + attempts[i][2]);
 						}
 						if (bullsNumber < 4)	{
 							steps++;
@@ -65,7 +58,7 @@
 								return;
 							}
 						} else {
-							alert ('Да!!!\nПоздравляем! Вы выиграли!');
+							alert (tryString + ' - да!!!\nПоздравляем!\nВы выиграли, потратив ходов - ' + (steps + 1));
 							return;
 						}
 					}
