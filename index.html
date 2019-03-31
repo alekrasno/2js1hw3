@@ -10,59 +10,63 @@
 				let secret = [];
 				let steps = 0;
 				let stepLimit = 10;
-				let attempts = []; // Сведения о попытках игрока
-// Комп загадывает 4-значное число
-        chaotic = function ()  { // ГСЧ
+				let attempts = []; // Данные о попытке игрока
+				// Комп загадывает 4-значное число
+        chaotic = function ()  {
 					return x = Math.floor(Math.random() * 10);
 				};
-				mystify = function()  { // Функция заполнения массива случайными числами
+				// Заполнение массива случайными числами
+				mystify = function()  {
 					while (secret.length < 4)  {
 						let x = chaotic();
 						//console.log ('Сгенерировано '+x);
 						if (secret.indexOf(x) == -1) {
+							//console.log (x + ' в массиве нет');
 							secret.push(x);
 							//console.log ('Добавляем элемент '+ x);
 						}
 					}
+					//return secret;
 				};
-				mystify(); // "Задумывание" числа
+				mystify();
 				console.log ('Загадано число ' + secret);
-// Игра начинается
 				for (i = 1; i <= stepLimit-1; i++)  {
 					let bullsNumber = 0;
 					let cowsNumber = 0;
-					let comparison = function (x)  { // Функция сравнения
+					// Игрок делает попытку угадать
+					let comparison = function (x)  {
 						console.log ('Осталось попыток ' + (9 - steps));
+						// Попытка сравнивается с оригиналом
 						for (j = 0; j < 4; j++)  { // Перебор введенного
 							for (i = 0; i < 4; i++)  { // Перебор загаданного
-								if (x.charAt(j) == secret[i])  { // Если цифра есть...
+								if (x.charAt(j) == secret[i])  { //
 									j == i ? bullsNumber++ : cowsNumber++;
 								} 	
 							}
 						}
-						let tourResult = [tryString, bullsNumber, cowsNumber];  // Результат сравнения
-						return tourResult;
+						// Выдается результат сравнения
+						console.log (x + ' |  Быков - '+ bullsNumber +', коров - ' + cowsNumber);
+						return bullsNumber, cowsNumber;
 					};
-					let tryString = prompt ('Ваши предположения?'); // Ввод данных
-					if (!tryString.match (/^\d{4}$/)) { // Контроль ввода
+					let tryString = prompt ('Ваши предположения?');
+					if (!tryString.match (/^\d{4}$/)) {
 						alert ('Принимаются только 4 цифры!');
 					} else {
-						attempts.push(comparison(tryString)); // Добавление результатов попытки в массив с результатами
-						for (i = attempts.length - 1; i >= 0; i--)  { // Вывод результатов предыдущих попыток
-							console.log ((i+1)+ '. ' + attempts[i][0] + ' |  Быков ' + attempts[i][1] + ', коров ' + attempts[i][2]);
+						comparison(tryString);	
+						let tourResult = [tryString, bullsNumber, cowsNumber];
+						attempts.push(tourResult); // Добавление строки с результатами попытки в массив
+						for (i = 0; i < attempts.length - 1; i++)  {
+							console.log ((i+1)+ '. ' + attempts[i][0], attempts[i][1], attempts[i][2]);
 						}
 						if (bullsNumber < 4)	{
 							steps++;
-							if (steps == stepLimit) { 
-								alert ('Количество попыток исчерпано.\nВы проиграли');
-								return;
-							}
 						} else {
-							alert (tryString + ' - да!!!\nПоздравляем!\nВы выиграли, потратив ходов - ' + (steps + 1));
+							alert ('Да!!!\nПоздравляем! Вы выиграли!');
 							return;
 						}
 					}
 				}	
+				alert ('Количество попыток исчерпано.\nВы проиграли');
       };
 // ------
       letsplay();
