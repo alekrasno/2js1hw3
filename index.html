@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bulls-and-Cows</title>
+  </head>	
+  <body>
+    <script>
+
+			var letsplay = function ()  { // Главная функция игры
+				let secret = [];
+				let steps = 0;
+				let stepLimit = 10;
+				let attempts = []; // Данные о попытке игрока
+				// Комп загадывает 4-значное число
+        chaotic = function ()  {
+					return x = Math.floor(Math.random() * 10);
+				};
+				// Заполнение массива случайными числами
+				mystify = function()  {
+					while (secret.length < 4)  {
+						let x = chaotic();
+						//console.log ('Сгенерировано '+x);
+						if (secret.indexOf(x) == -1) {
+							//console.log (x + ' в массиве нет');
+							secret.push(x);
+							//console.log ('Добавляем элемент '+ x);
+						}
+					}
+					//return secret;
+				};
+				mystify();
+				console.log ('Загадано число ' + secret);
+				for (i = 1; i <= stepLimit; i++)  {
+					let bullsNumber = 0;
+					let cowsNumber = 0;
+					// Игрок делает попытку угадать
+					let trying = [];
+					let tryString = prompt ('Ваши предположения?');
+					//console.log (tryString);
+					// Анализ хода игрока
+					let comparison = function (x)  {
+/* 						for (i = 0; i < 4; i++)  { // Строка -> Массив
+							trying[i] = tryString.charAt(i);
+						} */
+						console.log ('Введено '+ x);
+						for (j = 0; j < 4; j++)  { // Поэлементное сравнение
+							if (x.charAt(j) == secret[j])  { // Проверка на быков
+								console.log ('Элемент номер ' + j +'. Бык на месте');
+								bullsNumber++;
+								if (bullsNumber == 4) {
+									console.log ('Угадано');
+								}
+							} else {  
+								for (i = 0; i < 4; i++)  {
+									console.log (x.charAt(j) + ' проверяется на корову');
+									let jPos = secret.indexOf(x.charAt(j)); // Проверка на коров
+									console.log (jPos);
+									if (jPos != -1)  {
+							 		 	console.log ('Корова на месте '+ j);
+							 	 		cowsNumber++;
+									}
+								}	
+							}
+						}
+						return bullsNumber, cowsNumber;
+					};
+					comparison(tryString);
+					//console.log (trying);
+					attempts.push([tryString, bullsNumber, cowsNumber]); // Добавление строки с результатами попытки в массив
+					for (i = 0; i < attempts.length - 1; i++)  {
+						console.log (attempts[i][1], attempts[i][2], attempts[i][3]);
+					}
+					steps++;
+				}	
+
+      };
+// ------
+      letsplay();
+        
+      // Попытка сравнивается с оригиналом
+      // Выдается результат сравнения
+    </script>
+  </body>
+</html>		
+  
