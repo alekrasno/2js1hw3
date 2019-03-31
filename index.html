@@ -31,6 +31,7 @@
 				mystify();
 				console.log ('Загадано число ' + secret);
 				for (i = 1; i <= stepLimit-1; i++)  {
+					console.log ('Круг ' + i);
 					let bullsNumber = 0;
 					let cowsNumber = 0;
 					// Игрок делает попытку угадать
@@ -45,7 +46,7 @@
 							}
 						}
 						// Выдается результат сравнения
-						console.log (x + ' |  Быков - '+ bullsNumber +', коров - ' + cowsNumber);
+						// console.log (x + ' |  Быков - '+ bullsNumber +', коров - ' + cowsNumber);
 						return bullsNumber, cowsNumber;
 					};
 					let tryString = prompt ('Ваши предположения?');
@@ -55,8 +56,8 @@
 						comparison(tryString);	
 						let tourResult = [tryString, bullsNumber, cowsNumber];
 						attempts.push(tourResult); // Добавление строки с результатами попытки в массив
-						for (i = 0; i < attempts.length - 1; i++)  {
-							console.log ((i+1)+ '. ' + attempts[i][0], attempts[i][1], attempts[i][2]);
+						for (k = attempts.length; k > 0; k--)  {
+							console.log ((k)+ '. ' + attempts[k-1][0], attempts[k-1][1], attempts[k-1][2]);
 						}
 						if (bullsNumber < 4)	{
 							steps++;
