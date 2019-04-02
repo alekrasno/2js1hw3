@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Простые числа</title>
+</head>
+
+<body>
+    <script>
+        var lowerRange = 2; // Нижняя граница диапазона
+        var upperRange = 100; // Верхняя граница диапазона
+        var simpleNums = []; //Массив простых чисел
+        var simpleNumCheck = function(x) { // Проверка числа на "простоту"
+            let divs = 0; // Количество "целых" делителей числа (не дающих остатка при его делении на i)
+            let i = 1; // Счетчик делителей
+            while (divs <= 2) { // Пока целых делителей не больше двух (1 и само число)...
+                while (i <= 100) { //Перебор делителей...
+                    let div = x / i; // Частное с данным i
+                    let rest = div - Math.floor(div); // Выделение остатка от частного
+                    let dDivs = 1 - Math.ceil(rest); // Приращение кол-ва целых делителей
+                    divs = divs + dDivs; // Наращивание кол-ва целых делителей (при отсутствии остатка от деления не наращивается)
+                    i++;
+                }
+                break;
+            }
+            return (divs <= 2);
+        };
+        // ------------------------------		
+
+        var x = lowerRange;
+        while (x <= upperRange) {
+            simpleNumCheck(x) == true ? simpleNums.push(x) : console.log(x + ' не простое');
+            x++;
+        }
+        console.log('Простые числа: ' + simpleNums);
+    </script>
+</body>
+
+</html>
