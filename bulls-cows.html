@@ -58,12 +58,12 @@
                     let tourResult = [tryString, bullsNumber, cowsNumber];
                     attempts.push(tourResult); // Добавление строки с результатами попытки в массив
                     for (i = attempts.length - 1; i >= 0; i--) {
-                        console.log((i + 1) + '. ' + attempts[i][0], attempts[i][1], attempts[i][2]);
+                        console.log((i + 1) + '. ' + attempts[i][0] + '  |  Быков ' + attempts[i][1] + ', коров ' + attempts[i][2]);
                     }
                     if (bullsNumber < 4) {
                         steps++;
                     } else {
-                        alert('Да!!!\nПоздравляем! Вы выиграли!');
+                        alert('Да!!!\nПоздравляем! Вы выиграли!\nПотрачено ходов ' + (steps + 1));
                         return;
                     }
                 }
