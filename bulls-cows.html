@@ -1,76 +1,78 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Bulls-and-Cows</title>
-  </head>	
-  <body>
-    <script>
+<html lang="ru">
 
-			var letsplay = function ()  { // Главная функция игры
-				let secret = [];
-				let steps = 0;
-				let stepLimit = 10;
-				let attempts = []; // Данные о попытке игрока
-				// Комп загадывает 4-значное число
-        chaotic = function ()  {
-					return x = Math.floor(Math.random() * 10);
-				};
-				// Заполнение массива случайными числами
-				mystify = function()  {
-					while (secret.length < 4)  {
-						let x = chaotic();
-						//console.log ('Сгенерировано '+x);
-						if (secret.indexOf(x) == -1) {
-							//console.log (x + ' в массиве нет');
-							secret.push(x);
-							//console.log ('Добавляем элемент '+ x);
-						}
-					}
-					//return secret;
-				};
-				mystify();
-				console.log ('Загадано число ' + secret);
-				for (i = 1; i <= stepLimit-1; i++)  {
-					let bullsNumber = 0;
-					let cowsNumber = 0;
-					// Игрок делает попытку угадать
-					let comparison = function (x)  {
-						console.log ('Осталось попыток ' + (9 - steps));
-						// Попытка сравнивается с оригиналом
-						for (j = 0; j < 4; j++)  { // Перебор введенного
-							for (i = 0; i < 4; i++)  { // Перебор загаданного
-								if (x.charAt(j) == secret[i])  { //
-									j == i ? bullsNumber++ : cowsNumber++;
-								} 	
-							}
-						}
-						// Выдается результат сравнения
-						console.log (x + ' |  Быков - '+ bullsNumber +', коров - ' + cowsNumber);
-						return bullsNumber, cowsNumber;
-					};
-					let tryString = prompt ('Ваши предположения?');
-					if (!tryString.match (/^\d{4}$/)) {
-						alert ('Принимаются только 4 цифры!');
-					} else {
-						comparison(tryString);	
-						let tourResult = [tryString, bullsNumber, cowsNumber];
-						attempts.push(tourResult); // Добавление строки с результатами попытки в массив
-						for (i = 0; i < attempts.length - 1; i++)  {
-							console.log ((i+1)+ '. ' + attempts[i][0], attempts[i][1], attempts[i][2]);
-						}
-						if (bullsNumber < 4)	{
-							steps++;
-						} else {
-							alert ('Да!!!\nПоздравляем! Вы выиграли!');
-							return;
-						}
-					}
-				}	
-				alert ('Количество попыток исчерпано.\nВы проиграли');
-      };
-// ------
-      letsplay();
+<head>
+    <meta charset="utf-8">
+    <title>Bulls-and-Cows</title>
+</head>
+
+<body>
+    <script>
+        var letsplay = function() { // Главная функция игры
+            let secret = [];
+            let steps = 0;
+            let stepLimit = 10;
+            let attempts = []; // Данные о попытке игрока
+            // Комп загадывает 4-значное число
+            chaotic = function() {
+                return x = Math.floor(Math.random() * 10);
+            };
+            // Заполнение массива случайными числами
+            mystify = function() {
+                while (secret.length < 4) {
+                    let x = chaotic();
+                    //console.log ('Сгенерировано '+x);
+                    if (secret.indexOf(x) == -1) {
+                        //console.log (x + ' в массиве нет');
+                        secret.push(x);
+                        //console.log ('Добавляем элемент '+ x);
+                    }
+                }
+                //return secret;
+            };
+            mystify();
+            console.log('Загадано число ' + secret);
+            for (i = 1; i <= stepLimit - 1; i++) {
+                let bullsNumber = 0;
+                let cowsNumber = 0;
+                // Игрок делает попытку угадать
+                let comparison = function(x) {
+                    console.log('Осталось попыток ' + (9 - steps));
+                    // Попытка сравнивается с оригиналом
+                    for (j = 0; j < 4; j++) { // Перебор введенного
+                        for (i = 0; i < 4; i++) { // Перебор загаданного
+                            if (x.charAt(j) == secret[i]) { //
+                                j == i ? bullsNumber++ : cowsNumber++;
+                            }
+                        }
+                    }
+                    // Выдается результат сравнения
+                    //console.log (x + ' |  Быков - '+ bullsNumber +', коров - ' + cowsNumber);
+                    return bullsNumber, cowsNumber;
+                };
+                let tryString = prompt('Ваши предположения?');
+                if (!tryString.match(/^\d{4}$/)) {
+                    alert('Принимаются только 4 цифры!');
+                } else {
+                    comparison(tryString);
+                    let tourResult = [tryString, bullsNumber, cowsNumber];
+                    attempts.push(tourResult); // Добавление строки с результатами попытки в массив
+                    for (i = attempts.length - 1; i >= 0; i--) {
+                        console.log((i + 1) + '. ' + attempts[i][0], attempts[i][1], attempts[i][2]);
+                    }
+                    if (bullsNumber < 4) {
+                        steps++;
+                    } else {
+                        alert('Да!!!\nПоздравляем! Вы выиграли!');
+                        return;
+                    }
+                }
+            }
+            alert('Количество попыток исчерпано.\nВы проиграли');
+        };
+        // ------
+        letsplay();
     </script>
-  </body>
-</html>		
-  
+</body>
+
+</html>
